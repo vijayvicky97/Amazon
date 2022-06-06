@@ -1,20 +1,9 @@
-def gcd(no1,no2):
-    if no2 == 0:
-        return no1
-    return gcd(no2,no1%no2)
+from telethon.sync import TelegramClient, events
 
-def func(list1,gcd_value):
-    for length in range(gcd_value):
-        index = length
-        temp_var = list1[length]
-        for iterator in range(int(len(list1)/gcd_value)):
-            if not (index+gcd_value) > (len(list1)-1):
-                list1[index] = list1[index+gcd_value]
-                index += gcd_value
-            else:
-                list1[index] = temp_var
-                break
+async with TelegramClient("@Vijay_Vigneshh", api_id = 10830442, api_hash = "9b34b23bf7eb7ae6b53416c274700083") as client:
 
-list1 = [1,2,3,4,5,6,7,8,9,10,11,12]
-gcd_value = gcd(len(list1),2)
-func(list1,gcd_value)
+    @client.on(events.NewMessage(pattern='(?i).*Hello'))
+    async def handler(event):
+        await event.reply('Hey!')
+
+    await client.run_until_disconnected()
